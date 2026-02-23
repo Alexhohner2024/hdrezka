@@ -1,0 +1,7 @@
+{
+  "name": "hdrezka-msx-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend API for HDRezka MSX portal (Vercel serverless functions).",
+  "license": "MIT"
+}

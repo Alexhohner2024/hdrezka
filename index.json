@@ -1,24 +1,32 @@
 {
-  "name": "My Custom Rezka",
-  "version": "1.0.0",
-  "items": [
+  "name": "HDRezka MSX Portal",
+  "version": "1.1.0",
+  "menu": [
     {
-      "title": "HDRezka (Web)",
-      "icon": "https://static.hdrezka.ac/images/logo.png",
-      "type": "link",
-      "url": "https://hdrezka.ag",
-      "properties": { "button": "red" }
+      "id": "movies",
+      "label": "Фильмы (каталог MSX)",
+      "type": "content",
+      "reference": "https://your-vercel-project-url.vercel.app/api/movies"
     },
     {
-      "title": "Lampa (Local)",
-      "icon": "https://lampa.mx/img/icons/apple-touch-icon.png",
-      "type": "link",
-      "url": "http://lampa.mx"
+      "id": "hdrezka-web",
+      "label": "HDRezka (Web)",
+      "type": "action",
+      "action": {
+        "type": "link",
+        "url": "https://hdrezka.ag"
+      }
+    },
+    {
+      "id": "lampa-local",
+      "label": "Lampa (Local)",
+      "type": "action",
+      "action": {
+        "type": "link",
+        "url": "http://lampa.mx"
+      }
     }
   ],
-  "properties": {
-    "background": "https://images.unsplash.com/photo-1574267431644-4ed2580df2e8?q=80&w=1000",
-    "color": "#ffffff",
-    "input": "buttons"
-  }
+  "background": "https://images.unsplash.com/photo-1574267431644-4ed2580df2e8?q=80&w=1000",
+  "style": "default"
 }
