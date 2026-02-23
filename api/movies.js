@@ -1,38 +1,36 @@
-const REZKA_BASE_URL =
-  process.env.REZKA_BASE_URL || 'https://example-hdrezka-mirror.com';
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-/**
- * Vercel serverless function: /api/movies
- *
- * Returns a minimal MSX Content Root Object with a demo list of movies.
- * Later, the placeholder data should be replaced by real scraping of HDRezka.
- */
+const REZKA_BASE_URL = process.env.REZKA_BASE_URL || 'https://hdrezka.ag';
+
 module.exports = async (req, res) => {
   try {
-    // TODO: replace this placeholder with real HTML fetching & parsing from REZKA_BASE_URL.
+    const response = await axios.get(`${REZKA_BASE_URL}/films`);
+    const $ = cheerio.load(response.data);
 
-    const items = [
-      {
-        id: 'demo-movie-1',
-        title: 'Demo Movie 1',
-        description: 'Demo description for Movie 1 (replace with real HDRezka data).',
-        image: 'https://via.placeholder.com/300x450?text=Demo+Poster+1',
-        action: {
-          type: 'link',
-          url: `${REZKA_BASE_URL}/films/demo-movie-1`
-        }
-      },
-      {
-        id: 'demo-movie-2',
-        title: 'Demo Movie 2',
-        description: 'Demo description for Movie 2 (replace with real HDRezka data).',
-        image: 'https://via.placeholder.com/300x450?text=Demo+Poster+2',
-        action: {
-          type: 'link',
-          url: `${REZKA_BASE_URL}/films/demo-movie-2`
-        }
+    const items = [];
+    $('.b-content-item').each((index, element) => {
+      const $element = $(element);
+      const titleEl = $element.find('.b-content-item-title a');
+      const title = titleEl.text().trim();
+      const href = titleEl.attr('href');
+      const year = $element.find('.b-content-item-year').text().trim();
+      const rating = $element.find('.b-content-item-rating span').text().trim();
+      const imgSrc = $element.find('.b-content-item-poster img').attr('src');
+
+      if (title && href) {
+        items.push({
+          id: `movie-${index + 1}`,
+          title: `${title} (${year})`,
+          description: `Rating: ${rating}`,
+          image: imgSrc.startsWith('//') ? `https:${imgSrc}` : imgSrc,
+          action: {
+            type: 'link',
+            url: href.startsWith('http') ? href : `${REZKA_BASE_URL}${href}`
+          }
+        });
       }
-    ];
+    });
 
     const content = {
       name: 'HDRezka Movies',
@@ -51,9 +49,8 @@ module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(content);
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Movies API error:', error);
-    res.status(500).json({ error: 'Movies API internal error' });
+    res.status(500).json({ error: 'Failed to fetch movies from HDRezka' });
   }
 };
 
