@@ -6,7 +6,7 @@
       "id": "movies",
       "label": "Фильмы (каталог MSX)",
       "type": "content",
-      "reference": "https://your-vercel-project-url.vercel.app/api/movies"
+      "reference": "https://hdrezka-six.vercel.app/api/movies"
     },
     {
       "id": "hdrezka-web",
