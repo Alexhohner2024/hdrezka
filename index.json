@@ -1,0 +1,24 @@
+{
+  "name": "My Custom Rezka",
+  "version": "1.0.0",
+  "items": [
+    {
+      "title": "HDRezka (Web)",
+      "icon": "https://static.hdrezka.ac/images/logo.png",
+      "type": "link",
+      "url": "https://hdrezka.ag",
+      "properties": { "button": "red" }
+    },
+    {
+      "title": "Lampa (Local)",
+      "icon": "https://lampa.mx/img/icons/apple-touch-icon.png",
+      "type": "link",
+      "url": "http://lampa.mx"
+    }
+  ],
+  "properties": {
+    "background": "https://images.unsplash.com/photo-1574267431644-4ed2580df2e8?q=80&w=1000",
+    "color": "#ffffff",
+    "input": "buttons"
+  }
+}
